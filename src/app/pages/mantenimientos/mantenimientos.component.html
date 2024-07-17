@@ -1,0 +1,38 @@
+<div class="container-sm my-4">
+
+  <div class="content-header d-flex justify-content-between my-4">
+    <div class="main-title ">
+      <h3>Lista de mantenimientos realizados</h3>
+    </div>
+
+    <div class="search w-auto w-100">
+      <div class="input-search d-flex  gap-2 align-items-center justify-content-center">
+        <input class="form-control w-100" placeholder="Busqueda de mantenimiento" />
+        <label class="form-label">
+          <i class="bi bi-search fs-5"></i>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-sm container-mantenimientos">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Codigo</th>
+          <th scope="col">Placa</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of mantenimiento; track $index) {
+          <tr>
+            <th>{{item.fecha | date: 'dd/MM/yyyy hh:mm:ss' }} </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>

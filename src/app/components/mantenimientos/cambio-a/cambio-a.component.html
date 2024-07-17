@@ -1,0 +1,55 @@
+<div class="container-fluid my-4">
+  <div class="container">
+
+
+    <div class="modal" *ngIf="mostrarModal">
+      <div class="modal-dialog-centered formulario-direccion" style="max-width: 524px; width: 100%; max-height: 834px; height: 90vh;">
+      <form [formGroup]="mantenimientoV" (ngSubmit)="MantenimientoAceite()">
+        <div class="modal-content">
+          <h2 class = "titulo-direccion">Cambio de aceite</h2>
+            <div class="d-flex gap-3">
+
+              <input type="hidden" formArrayName="codigo">
+
+              <div class="w-100 pt-3 ">
+                <div class="form-group">
+                  <label for="modelo">Placa:</label>
+                  <input type="text" formControlName="placa" class="form-control">
+                </div>
+              </div>
+
+              <div class="w-100 pt-3 ">
+                <div class="form-group">
+                  <label for="modelo">Marca del Producto</label>
+                  <input type="text" formControlName="marca_producto" class="form-control">
+                </div>
+              </div>
+
+              <div class="w-100 pt-3">
+                <div class="form-group">
+                  <label for="modelo">Kilometraje:</label>
+                  <input type="number" formControlName="kilometraje" class="form-control">
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="row mt-5 justify-content-center">
+              <div class="col-md-6 text-md-end mb-3 mb-md-0">
+                <button (click)="cerrarModal()" class="btn btn-outline-secondary">Cancelar</button>
+              </div>
+              <div class="col-md-6 text-md-start">
+                <button type="submit" class="btn btn-success ">Realizar</button>
+              </div>
+            </div>
+
+      </div>
+      </form>
+
+      </div>
+    </div>
+
+  </div>
+</div>

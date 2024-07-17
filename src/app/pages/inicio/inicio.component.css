@@ -1,0 +1,28 @@
+.example-container {
+  width: auto;
+}
+
+#asidebutton {
+  width: 100%;
+}
+
+a{
+  border-radius: 8px;
+  color: #000;
+  width: 100%;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+.active{
+  transition: ease-out .2s;
+  background-color: #6fa8dc;
+  color: white;
+}
+
+a:hover {
+  color: white;
+  transition: ease-out .2s;
+  background-color: #9fc5e8;
+
+}

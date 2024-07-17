@@ -1,0 +1,226 @@
+<div class="container my-4">
+
+  <div class="content-header d-flex justify-content-between my-4">
+    <div class="main-header d-flex gap-3">
+      <div class="main-title">
+        <h3>Control de los Vehiculos registrados</h3>
+    </div>
+
+    <div class="search w-auto w-100">
+      <div class="input-search d-flex gap-2 align-items-center justify-content-center">
+        <input class="form-control w-100" placeholder="Busqueda de mantenimiento" [(ngModel)]="search" (input)="onSearch()" />
+        <label class="form-label">
+          <i class="bi bi-search fs-5"></i>
+        </label>
+      </div>
+    </div>
+    </div>
+
+    <div class="add-btn">
+      <button class="btn btn-outline-primary" (click)="abrirFormulario()">Añadir Vehiculo</button>
+    </div>
+  </div>
+
+  <div class="container-fluid d-flex gap-5 my-3">
+    @for (item of vehiculoAPI; track $index) {
+      <div class="card shadow-lg" style="width: 19rem;">
+        <div class="card-image d-flex align-items-center justify-content-center">
+          <div class="content-image w-100 position-relative">
+            <button (click)="editVehiculos(item)" class="edit-button  end-0 mt-1 me-5">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button (click)="deleteVehiculo(item._id)" class="delete-button  end-0 mt-1 me-1">
+              <i class="bi bi-trash fw-bold fs-6"></i>
+            </button>
+            <img [src]="item.imagen" class="w-100 " (load)="onLoad()" appAutoDefault>
+          </div>
+        </div>
+
+        <div class="card-body ">
+          <div class="up d-flex justify-content-between w-100">
+            <div class="content d-flex  gap-2 ">
+              <p class="fw-bold">Marca:</p>
+              <p >{{item.marca}}</p>
+            </div>
+
+            <div class="content d-flex flex-row gap-2 ">
+              <p class="fw-bold">Modelo:</p>
+              <p>{{item.modelo}}</p>
+            </div>
+            <!-- <p class="card-text fw-bold">Placa:</p> -->
+          </div>
+          <div class="up d-flex justify-content-between w-100">
+            <div class="content d-flex  gap-2 ">
+              <p class="fw-bold">Placa:</p>
+              <p >{{item.placa}}</p>
+            </div>
+
+            <div class="content d-flex flex-row gap-2 ">
+              <p class="fw-bold">Año:</p>
+              <p >{{item.anio}}</p>
+            </div>
+            <!-- <p class="card-text fw-bold">Placa:</p> -->
+          </div>
+
+        </div>
+
+
+        <div class="card-footer d-flex flex-wrap justify-content-between">
+          <button class="btn btn-outline-info" (click)="mostrarCambioAceite(item.placa)">Cambio de Aceite</button>
+          <button class="btn btn-outline-info" (click)="mostrarLavado(item.placa)">Lavado</button>
+        </div>
+      </div>
+    }
+
+  </div>
+
+</div>
+
+<div class="modal" *ngIf="formulario">
+  <div class="modal-dialog-centered formulario-direccion" style="max-width: 524px; width: 100%; max-height: 834px; height: 90vh;">
+  <form [formGroup]="vehiculosAdd" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <h2 class = "titulo-direccion">Detalles del Vehiculo</h2>
+        <div class="d-flex gap-3">
+
+          <div class="w-100 pt-3 ">
+            <div class="form-group">
+              <label for="modelo">Marca:</label>
+              <input type="text" formControlName="marca" class="form-control">
+            </div>
+          </div>
+
+          <div class="w-100 pt-3">
+            <div class="form-group">
+              <label for="modelo">Modelo:</label>
+              <input type="text" formControlName="modelo" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3">
+
+          <div class="w-100 pt-3 ">
+            <div class="form-group">
+              <label for="placa">Placa:</label>
+              <input type="text" formControlName="placa" class="form-control">
+            </div>
+          </div>
+
+          <div class="w-100 pt-3 ">
+            <div class="form-group">
+              <label for="anio">Año:</label>
+              <input type="text" formControlName="anio" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="w-100">
+          <div class="pt-3">
+            <div class="form-group w-100">
+              <label for="imagen">Imagen referencial:</label>
+              <!-- Aquí usamos formControlName para vincular el campo img_ref -->
+              <label for="imagen" class="file-upload form-control mt-3">
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control-file mt-3" id="imagen">
+                Seleccionar archivo
+              </label>
+              <label> <b>Archivo a subir:</b> {{textfile}}</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mt-5 justify-content-center">
+          <div class="col-md-6 text-md-end mb-3 mb-md-0">
+            <button (click)="cerrarModal()" class="btn btn-outline-secondary">CANCELAR</button>
+          </div>
+          <div class="col-md-6 text-md-start">
+            <button type="submit" class="btn btn-success ">ACEPTAR</button>
+          </div>
+        </div>
+
+  </div>
+  </form>
+
+  </div>
+</div>
+
+<div class="modal" *ngIf="formularioEdit">
+  <div class="modal-dialog-centered formulario-direccion" style="max-width: 524px; width: 100%; max-height: 834px; height: 90vh;">
+  <form [formGroup]="vehiculosAdd" (ngSubmit)="onSubmitEdit()">
+    <div class="modal-content">
+      <h2 class = "titulo-direccion">Detalles del Vehiculo</h2>
+        <div class="d-flex gap-3">
+          <input type="hidden" formControlName="_id">
+
+          <div class="w-100 pt-3 ">
+            <div class="form-group">
+              <label for="modelo">Marca:</label>
+              <input type="text" formControlName="marca" class="form-control">
+            </div>
+          </div>
+
+          <div class="w-100 pt-3">
+            <div class="form-group">
+              <label for="modelo">Modelo:</label>
+              <input type="text" formControlName="modelo" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3">
+
+          <div class="w-100 pt-3 ">
+            <div class="form-group">
+              <label for="placa">Placa:</label>
+              <input type="text" formControlName="placa" class="form-control">
+            </div>
+          </div>
+
+          <div class="w-100 pt-3 ">
+            <div class="form-group">
+              <label for="anio">Año:</label>
+              <input type="text" formControlName="anio" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="w-100">
+          <div class="pt-3">
+            <div class="form-group w-100">
+              <label for="imagen">Imagen referencial:</label>
+              <!-- Aquí usamos formControlName para vincular el campo img_ref -->
+              <label for="imagen" class="file-upload form-control mt-3">
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control-file mt-3" id="imagen">
+                Seleccionar archivo
+              </label>
+              <label> <b>Archivo a subir:</b> {{textfile}}</label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mt-5 justify-content-center">
+          <div class="col-md-6 text-md-end mb-3 mb-md-0">
+            <button (click)="cerrarModalEdit()" class="btn btn-outline-secondary">CANCELAR</button>
+          </div>
+          <div class="col-md-6 text-md-start">
+            <button type="submit" class="btn btn-success ">ACEPTAR</button>
+          </div>
+        </div>
+
+  </div>
+  </form>
+
+  </div>
+</div>
+
+<div class="content" *ngIf="mostrarLavado">
+  <app-lavado></app-lavado>
+</div>
+
+<div class="content" *ngIf="mostrarCambio">
+  <app-cambio-a ></app-cambio-a>
+</div>
+
+
