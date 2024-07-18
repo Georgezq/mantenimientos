@@ -1,27 +1,30 @@
 <div class="container-fluid p-0" >
   <mat-drawer-container class="example-container " style="height: 100vh;">
-    <mat-drawer mode="side" class="p-3 w-100" opened style="max-width: 250px;">
+    <mat-drawer mode="side" class="p-3 w-100" opened >
 
       <div class="container-fluid p-3 text-center">
-        <p class="fs-4">Mantenimientos</p>
+        <p class="fs-4 d-none d-lg-block">Mantenimientos</p>
 
         <div class="row d-flex flex-column">
 
-          <div class="col my-4" id="asidebutton">
+          <!-- <div class="col my-4" id="asidebutton">
             <a [routerLink]="['dashboard']" [routerLinkActive]="'active'">
-              Dashboard Principal
+              <span>Dashboard Principal</span>
             </a>
-          </div>
+          </div> -->
 
           <div class="col my-4" id="asidebutton">
+
             <a class="btnaside p-3 fs-6"   [routerLink]="['vehiculos']" [routerLinkActive]="'active'">
-              Vehiculos
+              <i class="bi bi-car-front-fill fs-3"></i>
+              <span>Vehiculos</span>
             </a>
           </div>
 
           <div class="col my-4" id="asidebutton">
             <a class="btnaside p-3 fs-6"   [routerLink]="['mantenimientos']" [routerLinkActive]="'active'">
-              Mantenimientos
+              <i class="bi bi-tools fs-3"></i>
+              <span>Mantenimientos</span>
             </a>
           </div>
 

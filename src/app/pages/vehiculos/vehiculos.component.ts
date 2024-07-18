@@ -1,16 +1,15 @@
-import { Component, inject, NgModule, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { VehiculosService } from '../../services/vehiculos.service';
 import { RouterLink } from '@angular/router';
 import { DatePipe, NgIf } from '@angular/common';
 import { AutoDefaultDirective } from '../../directives/auto-default.directive';
 import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { Observable } from 'rxjs';
 import { Storage,ref, getDownloadURL, uploadBytesResumable } from '@angular/fire/storage';
-import { DividerModule } from 'primeng/divider';
 import { CambioAComponent } from '../../components/mantenimientos/cambio-a/cambio-a.component';
 import { ModalService } from '../../services/modal.service';
 import { LavadoComponent } from '../../components/mantenimientos/lavado/lavado.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vehiculos',
@@ -126,9 +125,14 @@ export class VehiculosComponent implements OnInit{
     };
 
     this.vehiculos$.addVehiculos(carData).subscribe(
-      () => {
+      async () => {
         this.mostrarVehiculos();
         this.cerrarModal();
+        await Swal.fire({
+          title: 'Listo!',
+          text: 'Ingresado correctamente',
+          icon: 'success'
+        });
       }
     );
   }
@@ -153,21 +157,37 @@ export class VehiculosComponent implements OnInit{
       const _id: oVehiculos = this.vehiculosAdd.value._id;
       const vehiculoEdit: oVehiculos = this.vehiculosAdd.value;
       this.vehiculos$.editVehiculo(_id, vehiculoEdit).subscribe(
-        () => {
+        async () => {
           this.mostrarVehiculos();
           this.cerrarModalEdit();
+          await Swal.fire({
+            title: 'Listo!',
+            text: 'Editado correctamente',
+            icon: 'success'
+          });
         }
       )
     }
   }
 
   deleteVehiculo(id:any){
-    this.vehiculos$.deleteVehiculos(id).subscribe(
-      (res) => {
-        this.mostrarVehiculos();
+    Swal.fire({
+      title: 'Quieres eliminar este vehiculo?',
+      showDenyButton: true,
+      confirmButtonText: "Eliminar",
+      denyButtonText: `Cancelar`
+    }).then((result) => {
+      if(result.isConfirmed) {
+        this.vehiculos$.deleteVehiculos(id).subscribe(
+          (res) => {
+            Swal.fire("Eliminado!", "", "success");
+            this.mostrarVehiculos();
+          }
+        )
+      } else if(result.isDenied){
+        Swal.fire("Eliminación cancelada", "", "info");
       }
-    )
-    console.log(id)
+    });
   }
 
   onLoad() {

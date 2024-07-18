@@ -27,7 +27,6 @@ export class ModalService {
   mostrarModalLavado(placa:string) {
     this.mostrarModalLavadoSubject.next(true);
     this.placaLSubject.next(placa)
-    console.log('hola')
   }
 
   cerrarModalLavado() {

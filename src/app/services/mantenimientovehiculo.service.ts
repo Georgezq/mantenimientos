@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { API_CONNECT } from './API';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,12 @@ export class MantenimientovehiculoService {
   private readonly http = inject(HttpClient);
   private url = API_CONNECT;
 
-  getMantenimientosV(){
+  getMantenimientosV(): Observable<any>{
     return this.http.get(`${this.url}vehiculo-mantenimientos`);
+  }
+
+  filtrarMantenimientosV(search: string): Observable<any> {
+    return this.http.get(`${this.url}vehiculo-mantenimientos/filtrar`, { params: { search } });
   }
 
   addMantenimientoV(mantenimientov: oMantenimientoVehiculo){
@@ -22,9 +27,6 @@ export class MantenimientovehiculoService {
     return this.http.put(`${this.url}vehiculo-mantenimientos/${id}`, mantenimientov);
   }
 
-  filtrarMantenimientoV(){
-    return this.http.get(`${this.url}vehiculo-mantenimientos/alertas`)
-  }
 
   constructor() { }
 }
@@ -34,6 +36,7 @@ export interface oMantenimientoVehiculo{
   fecha?: Date;
   codigo?: string;
   placa?: string;
+  precio: string;
   marca_producto?: string;
   kilometraje?: number;
   alerta?: string;

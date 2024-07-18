@@ -31,6 +31,7 @@ export class CambioAComponent implements OnInit{
     this.mantenimientoV = this.fb.group({
       codigo: [''],
       placa: [''],
+      precio: [''],
       marca_producto: [''],
       kilometraje: [''],
    });
@@ -41,6 +42,7 @@ export class CambioAComponent implements OnInit{
       fecha: new Date(),
       codigo: this.mantenimientoV.value.codigo,
       placa: this.mantenimientoV.value.placa,
+      precio: this.mantenimientoV.value.precio,
       marca_producto: this.mantenimientoV.value.marca_producto,
       kilometraje: this.mantenimientoV.value.kilometraje
     };
@@ -49,7 +51,12 @@ export class CambioAComponent implements OnInit{
     this.mantenimientoV$.addMantenimientoV(newMantenimiento).subscribe(
       (res:any) => {
         this.cerrarModal();
-        this.mantenimientoV.reset();
+        this.mantenimientoV.patchValue({
+          placa: '',
+          marca_producto: '',
+          kilometraje: '',
+          precio: '',
+        });
         this.alerta = res.alerta;
         Swal.fire({
           title: '¡Importante!',
@@ -112,6 +119,7 @@ export interface oMantenimientoVehiculo{
   fecha?: Date;
   codigo?: string;
   placa?: string;
+  precio: string,
   marca_producto?: string;
   kilometraje?: number;
   alerta?: string;

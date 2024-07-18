@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+mat-drawer{
+  max-width: 250px;
+}
+
 a{
   border-radius: 8px;
   color: #000;
@@ -24,5 +28,36 @@ a:hover {
   color: white;
   transition: ease-out .2s;
   background-color: #9fc5e8;
+}
 
+a i{
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .active{
+    background-color: transparent !important;
+  }
+
+  .active i{
+    color: white;
+    border-radius: 12px;
+    background-color: #6fa8dc;
+  }
+
+
+  a i{
+    border-radius: 12px;
+    display: block;
+    color: rgb(105, 135, 213);
+    text-align: center;
+  }
+
+  a span{
+    display: none;
+  }
+
+  mat-drawer{
+    max-width: 100px;
+  }
 }

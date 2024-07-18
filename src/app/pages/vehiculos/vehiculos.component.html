@@ -1,8 +1,8 @@
 <div class="container my-4">
 
-  <div class="content-header d-flex justify-content-between my-4">
+  <div class="content-header d-flex flex-wrap justify-content-between my-4">
     <div class="main-header d-flex gap-3">
-      <div class="main-title">
+      <div class="main-title d-none d-md-block">
         <h3>Control de los Vehiculos registrados</h3>
     </div>
 
@@ -16,14 +16,14 @@
     </div>
     </div>
 
-    <div class="add-btn">
+    <div class="add-btn my-4 my-sm-0 d-none d-lg-block">
       <button class="btn btn-outline-primary" (click)="abrirFormulario()">Añadir Vehiculo</button>
     </div>
   </div>
 
-  <div class="container-fluid d-flex gap-5 my-3">
+  <div class="container-fluid d-flex gap-5 my-3 flex-wrap flex-row">
     @for (item of vehiculoAPI; track $index) {
-      <div class="card shadow-lg" style="width: 19rem;">
+      <div class="card shadow-lg " style="width: 19rem;">
         <div class="card-image d-flex align-items-center justify-content-center">
           <div class="content-image w-100 position-relative">
             <button (click)="editVehiculos(item)" class="edit-button  end-0 mt-1 me-5">
@@ -37,7 +37,7 @@
         </div>
 
         <div class="card-body ">
-          <div class="up d-flex justify-content-between w-100">
+          <div class="up d-flex justify-content-between flex-wrap w-100">
             <div class="content d-flex  gap-2 ">
               <p class="fw-bold">Marca:</p>
               <p >{{item.marca}}</p>
@@ -49,7 +49,7 @@
             </div>
             <!-- <p class="card-text fw-bold">Placa:</p> -->
           </div>
-          <div class="up d-flex justify-content-between w-100">
+          <div class="up d-flex justify-content-between flex-wrap w-100">
             <div class="content d-flex  gap-2 ">
               <p class="fw-bold">Placa:</p>
               <p >{{item.placa}}</p>
@@ -65,9 +65,9 @@
         </div>
 
 
-        <div class="card-footer d-flex flex-wrap justify-content-between">
+        <div class="card-footer d-flex d-lg-flex flex-wrap  justify-content-between ">
           <button class="btn btn-outline-info" (click)="mostrarCambioAceite(item.placa)">Cambio de Aceite</button>
-          <button class="btn btn-outline-info" (click)="mostrarLavado(item.placa)">Lavado</button>
+          <button class="btn btn-outline-info my-4 my-lg-0" (click)="mostrarLavado(item.placa)">Lavado</button>
         </div>
       </div>
     }
@@ -110,7 +110,7 @@
           <div class="w-100 pt-3 ">
             <div class="form-group">
               <label for="anio">Año:</label>
-              <input type="text" formControlName="anio" class="form-control">
+              <input type="number" formControlName="anio" class="form-control">
             </div>
           </div>
         </div>
@@ -180,7 +180,7 @@
           <div class="w-100 pt-3 ">
             <div class="form-group">
               <label for="anio">Año:</label>
-              <input type="text" formControlName="anio" class="form-control">
+              <input type="number" formControlName="anio" class="form-control">
             </div>
           </div>
         </div>
